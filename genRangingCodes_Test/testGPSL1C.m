@@ -148,17 +148,17 @@ for prn = 1:63
     bL1CdI = 0;
     bL1CdF = 0;
     for lp = 1:24
-        if colL1Cp(lp,prn) ~= str2double(L1Cp_BinInit24(prn,lp));
+        if colL1Cp(lp,prn) ~= str2double(L1Cp_BinInit24(prn,lp))
             bL1CpI = 1;
         end
-        if colL1Cp(10230-24+lp,prn) ~= str2double(L1Cp_BinFinal24(prn,lp));
+        if colL1Cp(10230-24+lp,prn) ~= str2double(L1Cp_BinFinal24(prn,lp))
             bL1CpF = 1;
         end
         
-        if colL1Cd(lp,prn) ~= str2double(L1Cd_BinInit24(prn,lp));
+        if colL1Cd(lp,prn) ~= str2double(L1Cd_BinInit24(prn,lp))
             bL1CdI = 1;
         end
-        if colL1Cd(10230-24+lp,prn) ~= str2double(L1Cd_BinFinal24(prn,lp));
+        if colL1Cd(10230-24+lp,prn) ~= str2double(L1Cd_BinFinal24(prn,lp))
             bL1CdF = 1;
         end
     end
@@ -198,3 +198,17 @@ stem(bmatL1Cd(:,2));
 title('L1C_d Final 24 Chips Comparison Results (zero means matched)');
 xlabel('PRN#');
 
+%% Deceision
+bResult = sum(bmatL1Cp);
+if bResult ~= 0
+    fprintf('FAILURE: Generated randing code sequences of GPS L1 Cp is not valid.\n');    
+elseif bResult == 0
+    fprintf('SUCCESS: Generated randing code sequences of GPS L1 Cp is valid.\n');
+end
+
+bResult = sum(bmatL1Cd);
+if bResult ~= 0
+    fprintf('FAILURE: Generated randing code sequences of GPS L1 Cd is not valid.\n');    
+elseif bResult == 0
+    fprintf('SUCCESS: Generated randing code sequences of GPS L1 Cd is valid.\n');
+end

@@ -60,3 +60,11 @@ figure;
 stem(bmatL1CA);
 title('L1 C/A Initial 10 Chips Comparison Results (zero means matched)');
 xlabel('PRN#');
+
+%% Deceision
+bResult = sum(bmatL1CA);
+if bResult ~= 0
+    fprintf('FAILURE: Generated randing code sequences of GPS L1 C/A is not valid.\n');    
+elseif bResult == 0
+    fprintf('SUCCESS: Generated randing code sequences of GPS L1 C/A is valid.\n');
+end

@@ -148,17 +148,17 @@ for prn = 1:63
     bB1CdI = 0;
     bB1CdF = 0;
     for lp = 1:24
-        if colB1Cp(lp,prn) ~= str2double(B1Cp_BinInit24(prn,lp));
+        if colB1Cp(lp,prn) ~= str2double(B1Cp_BinInit24(prn,lp))
             bB1CpI = 1;
         end
-        if colB1Cp(10230-24+lp,prn) ~= str2double(B1Cp_BinLast24(prn,lp));
+        if colB1Cp(10230-24+lp,prn) ~= str2double(B1Cp_BinLast24(prn,lp))
             bB1CpF = 1;
         end
         
-        if colB1Cd(lp,prn) ~= str2double(B1Cd_BinInit24(prn,lp));
+        if colB1Cd(lp,prn) ~= str2double(B1Cd_BinInit24(prn,lp))
             bB1CdI = 1;
         end
-        if colB1Cd(10230-24+lp,prn) ~= str2double(B1Cd_BinLast24(prn,lp));
+        if colB1Cd(10230-24+lp,prn) ~= str2double(B1Cd_BinLast24(prn,lp))
             bB1CdF = 1;
         end
     end
@@ -198,3 +198,17 @@ stem(bmatB1Cd(:,2));
 title('B1C_d Last 24 Chips Comparison Results (zero means matched)');
 xlabel('PRN#');
 
+%% Deceision
+bResult = sum(bmatB1Cp);
+if bResult ~= 0
+    fprintf('FAILURE: Generated randing code sequences of BeiDou B1 Cp is not valid.\n');    
+elseif bResult == 0
+    fprintf('SUCCESS: Generated randing code sequences of BeiDou B1 Cp is valid.\n');
+end
+
+bResult = sum(bmatB1Cd);
+if bResult ~= 0
+    fprintf('FAILURE: Generated randing code sequences of BeiDou B1 Cd is not valid.\n');    
+elseif bResult == 0
+    fprintf('SUCCESS: Generated randing code sequences of BeiDou B1 Cd is valid.\n');
+end
