@@ -1,9 +1,9 @@
 clear all;
-close all;
+% close all;
 clc;
 
 time = 10000; %ms
-fs = 10000; %kHz
+fs = 2000; %kHz
 fc = 1575420000;
 CNR = -20;
 
@@ -21,8 +21,8 @@ end
 
 Amp = sqrt(2*10^(CNR/10));
 Signal = Amp.*Sampled_CA_code.*Sampled_Carrier_I;
-SNR = 10*log10(var(Signal)/var(randn(1,fs)))
-
+%SNR = 10*log10(var(Signal)/var(randn(1,fs)))
+SNR = 10*log10(var(Signal)/1)
 
 % tt = var(randn(1,fs));
 % Signal = Amp.*Sampled_CA_code.*Sampled_Carrier_I;
@@ -71,7 +71,7 @@ Norm = sqrt(2*fs);
 
 %%% Pdf of Noise 
 Resol_N = 0.005;
-figure;
+% figure;
 x = 0:Resol_N:30;
 [n xcount] = hist(sqrt(Corr_I_N.^2+Corr_Q_N.^2)./Norm,x); grid on;
 plot(xcount,n./(sum(n)/(1/Resol_N))); grid on; hold on;
@@ -79,21 +79,33 @@ ylim([0 1]);
 
 z = x;
 Pdf_N = z.*exp(-(0.5.*z.^2));
-plot(z, Pdf_N,'r.-');
+plot(z, Pdf_N,'.-');
 ylim([0 1]);
+
+
 
 %%% Pdf of Signal
 Resol_S = 0.01;
-figure;
+% figure;
 x = 0:Resol_S:30;
 [n xcount] = hist(sqrt(Corr_I_S.^2+Corr_Q_S.^2)./Norm,x); grid on;
 plot(x,n./(sum(n)/(1/Resol_S))); grid on; hold on;
 ylim([0 1]);
 
 z = x;
-CN = var(Signal)/var(randn(1,fs))*(fs/2); %*(1023/1023)^2;
+%CN = var(Signal)/var(randn(1,fs))*(fs/2); %*(1023/1023)^2;
+CN = var(Signal)/1*(fs/2); %*(1023/1023)^2;
 CN_dB = 10*log10(CN)
 Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
-plot(z, Pdf_S,'r.-'); 
+plot(z, Pdf_S,'.-'); 
 ylim([0 1]);
 
+% hold on;
+% 
+% % 아래 임의 추가
+% z = x;
+% CN = var(Signal)/var(randn(1,fs))*(1023/1023)^2*0.001;
+% CN_dB = 10*log10(CN)
+% Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
+% plot(z, Pdf_S,'.-'); 
+% ylim([0 1]);
