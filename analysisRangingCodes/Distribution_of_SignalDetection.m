@@ -10,7 +10,7 @@ load CodeSequence_PRN_GPSL1CA.mat;
 load CodeSequence_Polyphase_ZadoffChu_1023_0.mat;
 %% 
 
-time = 50000; %ms
+time = 100000; %ms
 fs = 10230; %kHz
 %fc = 1575420000;
 fc = 5420000;
