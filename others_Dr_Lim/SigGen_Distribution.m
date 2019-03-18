@@ -23,6 +23,15 @@ Amp = sqrt(2*10^(CNR/10));
 Signal = Amp.*Sampled_CA_code.*Sampled_Carrier_I;
 SNR = 10*log10(var(Signal)/var(randn(1,fs)))
 
+
+% tt = var(randn(1,fs));
+% Signal = Amp.*Sampled_CA_code.*Sampled_Carrier_I;
+% SNR = 10*log10(var(Signal)/tt)
+% Signal = Amp.*Sampled_Carrier_I;
+% SNR = 10*log10(var(Signal)/tt)
+% Signal = Amp.*Sampled_CA_code;
+% SNR = 10*log10(var(Signal)/tt)
+
 %%% Correlation Outputs Generation
 Corr_I_S = zeros(1,time);
 Corr_Q_S = zeros(1,time);
