@@ -1,7 +1,7 @@
 %% Pre-Processing
 
 % % Correlation Results Loading
-path = 'D:\TemporalDataStorage\';
+path = 'F:\TemporalDataStorage\';
 
 load([path,'CorrOut_GPSL1CA.mat']);
 load([path,'CorrOut_GPSL1C.mat']);
