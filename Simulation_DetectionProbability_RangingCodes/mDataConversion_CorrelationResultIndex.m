@@ -1,4 +1,4 @@
-path = 'D:\TemporalDataStorage\';
+path = 'F:\TemporalDataStorage\';
 
 % GPS L1 C/A
 load([path,'CorrOut_GPSL1CA.mat']);
