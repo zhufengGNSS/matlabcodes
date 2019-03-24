@@ -7,9 +7,8 @@ function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN_dB, n
 
     vt = vt_init; 
     
-    FA_CorrOut_Auto = zeros(nNumPRN,1);
-    
     while(1)
+        FA_CorrOut_Auto = zeros(nNumPRN,1);
         for lpPRN1 = targetPRN1
             if strcmp(Type,'Auto')
                 targetPRN2 = 1;
