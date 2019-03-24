@@ -1,4 +1,4 @@
-function vt = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
+function [vt, pfa] = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
     bWhileEnd = 0;
     Scaler = scale_init;
     cnt_Scaler = 1;
@@ -41,6 +41,7 @@ function vt = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNum
             Scaler = 1;
             bWhileEnd = 0;
             fprintf('Verifying Vt. function return\n');
+            pfa = flagFA;
             break;
         end
         
