@@ -35,24 +35,30 @@ function vt = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNum
         end
         
         flagFA = mean(FA_CorrOut_Auto(:,1));
-        flagFA
+        fprintf('Vt=%.10f, FA=%.16f%%\t',vt,flagFA*100);
         
         if bWhileEnd == 1
             Scaler = 1;
             bWhileEnd = 0;
+            fprintf('Verifying Vt. function return\n');
             break;
         end
         
-        %if flagFA > Scaler_prec
         if flagFA > 0.01000000000
             vt = vt + Scaler;
             cnt_Scaler = cnt_Scaler + 1;
+            fprintf('Vt+Scaler\n');
         else
             vt = vt - Scaler;
             Scaler = Scaler * 0.1;
             cnt_Scaler = 0;
             if Scaler < Scaler_prec
                 bWhileEnd = 1;
+                fprintf('Complete!\n');
+            else
+                vt = vt + Scaler;
+                cnt_Scaler = cnt_Scaler + 1;
+                fprintf('Vt-Scaler, Scaler/10 than Vt+Scaler\n');
             end
         end
     end
