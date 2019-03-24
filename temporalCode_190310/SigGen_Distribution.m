@@ -97,12 +97,19 @@ z = x;
 CN = var(Signal)/1*(fs/2); %*(1023/1023)^2;
 CN_dB = 10*log10(CN)
 Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
+plot(z, Pdf_S,'o-'); 
+ylim([0 1]);
+
+CN = Amp^2/2 * (fs/2)
+CN_dB = 10*log10(CN)
+Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
 plot(z, Pdf_S,'.-'); 
 ylim([0 1]);
 
+legend 1 2 3 4 5
 % hold on;
 % 
-% % 아래 임의 추가
+% % ?�래 ?�의 추�?
 % z = x;
 % CN = var(Signal)/var(randn(1,fs))*(1023/1023)^2*0.001;
 % CN_dB = 10*log10(CN)
