@@ -45,23 +45,44 @@ function [vt, pfa] = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_d
             break;
         end
         
-        if flagFA > 0.01000000000
-            vt = vt + Scaler;
-            cnt_Scaler = cnt_Scaler + 1;
-            fprintf('Vt+Scaler\n');
-        else
+        % % Right-handed Limit
+%         if flagFA > 0.01000000000
+%             vt = vt + Scaler;
+%             cnt_Scaler = cnt_Scaler + 1;
+%             fprintf('Vt+Scaler\n');
+%         else
+%             vt = vt - Scaler;
+%             Scaler = Scaler * 0.1;
+%             cnt_Scaler = 0;
+%             if Scaler < Scaler_prec
+%                 bWhileEnd = 1;
+%                 fprintf('Complete!\n');
+%             else
+%                 vt = vt + Scaler;
+%                 cnt_Scaler = cnt_Scaler + 1;
+%                 fprintf('Vt-Scaler, Scaler/10 than Vt+Scaler\n');
+%             end
+%         end
+        
+        % % Left-handed Limit
+        if flagFA < 0.01000000000
             vt = vt - Scaler;
+            cnt_Scaler = cnt_Scaler + 1;
+            fprintf('Vt-Scaler\n');
+        else
+            vt = vt + Scaler;
             Scaler = Scaler * 0.1;
             cnt_Scaler = 0;
             if Scaler < Scaler_prec
                 bWhileEnd = 1;
                 fprintf('Complete!\n');
             else
-                vt = vt + Scaler;
+                vt = vt - Scaler;
                 cnt_Scaler = cnt_Scaler + 1;
-                fprintf('Vt-Scaler, Scaler/10 than Vt+Scaler\n');
+                fprintf('Vt+Scaler, Scaler/10 than Vt-Scaler\n');
             end
         end
+
     end
     
 end
