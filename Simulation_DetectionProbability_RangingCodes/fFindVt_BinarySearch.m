@@ -1,18 +1,19 @@
 function [vt, pfa] = fFindVt_BinarySearch(Type, pfa_target, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_low, vt_high)
     targetPRN1 = 1:nNumPRN;
-    
-    if Type == 'Auto'       
-        targetPRN2 = 1;
-    elseif Type == 'Cross'  
-        targetPRN2 = 1:nNumPRN;
-    end
-    
+
     vt = vt_low + (vt_high - vt_low) / 2;
     
     FA_CorrOut_Auto = zeros(nNumPRN,1);
     
     while(1)
         for lpPRN1 = targetPRN1
+            if strcmp(Type,'Auto')
+                targetPRN2 = 1;
+            elseif strcmp(Type,'Cross')
+                targetPRN2 = (1:nNumPRN-lpPRN1+1);
+            end
+            
+            nCntCross = 0;
             for lpPRN2 = targetPRN2
                 FA_temp = zeros(nLenCode,1);
                 for lpChip = 1:nLenCode
@@ -22,12 +23,14 @@ function [vt, pfa] = fFindVt_BinarySearch(Type, pfa_target, Scaler_prec, CN_dB, 
                     FA_temp(lpChip,1) = marcumq(QM_a,vt,1);
                 end
                 
+                nCntCross = nCntCross + 1;
                 if lpPRN2 == 1
-                    FA_CorrOut_Auto(lpPRN1) = mean(FA_temp(2:nLenCode,1));
+                    FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp(2:nLenCode,1));
                 else
-                    FA_CorrOut_Auto(lpPRN1) = mean(FA_temp);
+                    FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp);
                 end
             end
+            FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) / nCntCross;
         end
         
         flagFA = mean(FA_CorrOut_Auto(:,1));

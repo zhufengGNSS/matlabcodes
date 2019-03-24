@@ -26,38 +26,38 @@ Vt_GALE1c_C =  zeros(lenLoop, 4);
 
 prec = 1e-10;
 for idx = 1:lenLoop
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, 3.0, 3.1);
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, 0, 10);
     Vt_GPSL1CA_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, vt, prec*10);
     Vt_GPSL1CA_C(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 3.0, 3.1);
-    Vt_GPSL1Cp_C(idx,:) = [vt, pfa];
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 0, 10);
+    Vt_GPSL1Cp_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 63, CorrOut_GPSL1Cp,  10230, sigma, vt, prec*10);
     Vt_GPSL1Cp_C(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 3.0, 3.1);
-    Vt_GPSL1Cd_C(idx,:) = [vt, pfa];
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 0, 10);
+    Vt_GPSL1Cd_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 63, CorrOut_GPSL1Cd,  10230, sigma, vt, prec*10);
     Vt_GPSL1Cp_C(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 3.0, 3.1);
-    Vt_BDSB1Cp_C(idx,:) = [vt, pfa];
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 0, 10);
+    Vt_BDSB1Cp_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 63, CorrOut_BDSB1Cp,  10230, sigma, vt, prec*10);
     Vt_GPSL1Cp_C(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 3.0, 3.1);
-    Vt_BDSB1Cd_C(idx,:) = [vt, pfa];
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 0, 10);
+    Vt_BDSB1Cd_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 63, CorrOut_BDSB1Cd,  10230, sigma, vt, prec*10);
     Vt_BDSB1Cd_C(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 3.0, 3.1);
-    Vt_GALE1b_C(idx,:) = [vt, pfa];
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 0, 10);
+    Vt_GALE1b_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 50, CorrOut_GALE1b,  4092, sigma, vt, prec*10);
     Vt_GALE1b_C(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 3.0, 3.1);
-    Vt_GALE1c_C(idx,:) = [vt, pfa];
+    [vt, pfa] = fFindVt_BinarySearch('Cross', 0.01, prec, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 0, 10);
+    Vt_GALE1c_C(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, prec/10, CN_dB(idx), 50, CorrOut_GALE1c,  4092, sigma, vt, prec*10);
     Vt_GALE1c_C(idx,3:4) = [vt, pfa];
     
