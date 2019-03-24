@@ -1,6 +1,6 @@
-function vt = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init)
+function vt = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
     bWhileEnd = 0;
-    Scaler = 1;
+    Scaler = scale_init;
     cnt_Scaler = 1;
 
     targetPRN1 = 1:nNumPRN;
@@ -26,7 +26,7 @@ function vt = fFindDetectionThreshold_Pfa1percent(Type, Scaler_prec, CN_dB, nNum
                     FA_temp(lpChip,1) = marcumq(QM_a,vt,1);
                 end
                 
-                if lpPRN1 == lpPRN2
+                if lpPRN2 == 1
                     FA_CorrOut_Auto(lpPRN1) = mean(FA_temp(2:nLenCode,1));
                 else
                     FA_CorrOut_Auto(lpPRN1) = mean(FA_temp);
