@@ -26,25 +26,25 @@ Vt_GALE1b_A =  zeros(lenLoop, 2);
 Vt_GALE1c_A =  zeros(lenLoop, 2);
 
 for idx = 1:lenLoop
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, 3.03,0.01);
     Vt_GPSL1CA_A(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 3.03,0.01);
     Vt_GPSL1Cp_A(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 3.03,0.01);
     Vt_GPSL1Cd_A(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 3.03,0.01);
     Vt_BDSB1Cp_A(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 3.03,0.01);
     Vt_BDSB1Cd_A(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 3.03,0.01);
     Vt_GALE1b_A(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Auto', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 3.03,0.01);
     Vt_GALE1c_A(idx,:) = [vt, pfa];
     
     save([path,'Vt_Auto.mat'],...
@@ -71,25 +71,25 @@ Vt_GALE1b_C =  zeros(lenLoop, 2);
 Vt_GALE1c_C =  zeros(lenLoop, 2);
 
 for idx = 1:lenLoop
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 32, CorrOut_GPSL1CA,  1023, sigma, 3.03,0.01);
     Vt_GPSL1CA_C(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 3.03,0.01);
     Vt_GPSL1Cp_C(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 3.03,0.01);
     Vt_GPSL1Cd_C(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 3.03,0.01);
     Vt_BDSB1Cp_C(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 3.03,0.01);
     Vt_BDSB1Cd_C(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 3.03,0.01);
     Vt_GALE1b_C(idx,:) = [vt, pfa];
     
-    [vt, pfa] = fFindDetectionThreshold_Limit('Cross', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 3.03,0.01);
+    [vt, pfa] = fFindVt_DecimalScan('Cross', 0.01, 1e-10, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 3.03,0.01);
     Vt_GALE1c_C(idx,:) = [vt, pfa];
     
     save([path,'Vt_Cross.mat'],...

@@ -1,4 +1,4 @@
-function [vt, pfa] = fFindDetectionThreshold_Limit(Type, pfa_target, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
+function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
     bWhileEnd = 0;
     Scaler = scale_init;
     cnt_Scaler = 1;
@@ -35,11 +35,9 @@ function [vt, pfa] = fFindDetectionThreshold_Limit(Type, pfa_target, Scaler_prec
         end
         
         flagFA = mean(FA_CorrOut_Auto(:,1));
-        fprintf('Vt=%.10f, FA=%.16f%%\t',vt,flagFA*100);
+        fprintf('Vt=%.14f, FA=%.14f%%\t',vt,flagFA*100);
         
         if bWhileEnd == 1
-            Scaler = 1;
-            bWhileEnd = 0;
             fprintf('Verifying Vt. function return\n');
             pfa = flagFA;
             break;
