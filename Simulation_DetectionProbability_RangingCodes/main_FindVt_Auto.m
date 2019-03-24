@@ -32,32 +32,32 @@ for idx = 1:lenLoop
     Vt_GPSL1CA_A(idx,3:4) = [vt, pfa];
     
     [vt, pfa] = fFindVt_BinarySearch('Auto', 0.01, prec, CN_dB(idx), 63, CorrOut_GPSL1Cp, 10230, sigma, 3.0, 3.1);
-    Vt_GPSL1Cp_A(idx,:) = [vt, pfa];
+    Vt_GPSL1Cp_A(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, prec/10, CN_dB(idx), 63, CorrOut_GPSL1Cp,  10230, sigma, vt, prec*10);
     Vt_GPSL1Cp_A(idx,3:4) = [vt, pfa];
     
     [vt, pfa] = fFindVt_BinarySearch('Auto', 0.01, prec, CN_dB(idx), 63, CorrOut_GPSL1Cd, 10230, sigma, 3.0, 3.1);
-    Vt_GPSL1Cd_A(idx,:) = [vt, pfa];
+    Vt_GPSL1Cd_A(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, prec/10, CN_dB(idx), 63, CorrOut_GPSL1Cd,  10230, sigma, vt, prec*10);
     Vt_GPSL1Cp_A(idx,3:4) = [vt, pfa];
     
     [vt, pfa] = fFindVt_BinarySearch('Auto', 0.01, prec, CN_dB(idx), 63, CorrOut_BDSB1Cp, 10230, sigma, 3.0, 3.1);
-    Vt_BDSB1Cp_A(idx,:) = [vt, pfa];
+    Vt_BDSB1Cp_A(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, prec/10, CN_dB(idx), 63, CorrOut_BDSB1Cp,  10230, sigma, vt, prec*10);
     Vt_GPSL1Cp_A(idx,3:4) = [vt, pfa];
     
     [vt, pfa] = fFindVt_BinarySearch('Auto', 0.01, prec, CN_dB(idx), 63, CorrOut_BDSB1Cd, 10230, sigma, 3.0, 3.1);
-    Vt_BDSB1Cd_A(idx,:) = [vt, pfa];
+    Vt_BDSB1Cd_A(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, prec/10, CN_dB(idx), 63, CorrOut_BDSB1Cd,  10230, sigma, vt, prec*10);
     Vt_BDSB1Cd_A(idx,3:4) = [vt, pfa];
     
     [vt, pfa] = fFindVt_BinarySearch('Auto', 0.01, prec, CN_dB(idx), 50,  CorrOut_GALE1b,  4092, sigma, 3.0, 3.1);
-    Vt_GALE1b_A(idx,:) = [vt, pfa];
+    Vt_GALE1b_A(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, prec/10, CN_dB(idx), 50, CorrOut_GALE1b,  4092, sigma, vt, prec*10);
     Vt_GALE1b_A(idx,3:4) = [vt, pfa];
     
     [vt, pfa] = fFindVt_BinarySearch('Auto', 0.01, prec, CN_dB(idx), 50,  CorrOut_GALE1c,  4092, sigma, 3.0, 3.1);
-    Vt_GALE1c_A(idx,:) = [vt, pfa];
+    Vt_GALE1c_A(idx,1:2) = [vt, pfa];
     [vt, pfa] = fFindVt_DecimalScan('Auto', 0.01, prec/10, CN_dB(idx), 50, CorrOut_GALE1c,  4092, sigma, vt, prec*10);
     Vt_GALE1c_A(idx,3:4) = [vt, pfa];
     
