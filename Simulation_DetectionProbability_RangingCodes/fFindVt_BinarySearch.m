@@ -1,22 +1,26 @@
-function [vt, pfa] = fFindVt_BinarySearch(Type, pfa_target, Scaler_prec, CN0_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_low, vt_high)
-    targetPRN1 = 1:nNumPRN;
+function [vt, pfa] = fFindVt_BinarySearch(typeCorr, time, refPfa, refPrcsn, CN0_dB, numPRN, CorrOut, lenCode, sigma, lowVt, highVt)
+    targetPRN1 = 1:numPRN;
 
-    vt = vt_low + (vt_high - vt_low) / 2;
+    vt = lowVt + (highVt - lowVt) / 2;
+    
+    CN0 = 10^(CN0_dB/10);
+
+    timeSearchDwell = time; % it also be sampling rate.
     
     while(1)
-        FA_CorrOut_Auto = zeros(nNumPRN,1);
+        FA_CorrOut_Auto = zeros(numPRN,1);
         for lpPRN1 = targetPRN1
-            if strcmp(Type,'Auto')
+            if strcmp(typeCorr,'Auto')
                 targetPRN2 = 1;
-            elseif strcmp(Type,'Cross')
-                targetPRN2 = (1:nNumPRN-lpPRN1+1);
+            elseif strcmp(typeCorr,'Cross')
+                targetPRN2 = (1:numPRN-lpPRN1+1);
             end
             
             nCntCross = 0;
             for lpPRN2 = targetPRN2
-                FA_temp = zeros(nLenCode,1);
-                for lpChip = 1:nLenCode
-                    CN = 10^(CN0_dB/10) * 0.001 * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
+                FA_temp = zeros(lenCode,1);
+                for lpChip = 1:lenCode
+                    CN = CN0 * timeSearchDwell * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
                     nu = sqrt(2*(CN));
                     QM_a = nu / sigma;
                     FA_temp(lpChip,1) = marcumq(QM_a,vt,1);
@@ -24,7 +28,7 @@ function [vt, pfa] = fFindVt_BinarySearch(Type, pfa_target, Scaler_prec, CN0_dB,
                 
                 nCntCross = nCntCross + 1;
                 if lpPRN2 == 1
-                    FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp(2:nLenCode,1));
+                    FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp(2:lenCode,1));
                 else
                     FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp);
                 end
@@ -36,36 +40,36 @@ function [vt, pfa] = fFindVt_BinarySearch(Type, pfa_target, Scaler_prec, CN0_dB,
         fprintf('Vt=%.14f, FA=%.14f%%\t',vt,flagFA*100);
         
         % % Right-handed Limit
-%         if flagFA > pfa_target
-%             vt_low = vt;
-%             vt = vt + ((vt_high - vt_low) / 2);
+%         if flagFA > refPfa
+%             lowVt = vt;
+%             vt = vt + ((highVt - lowVt) / 2);
 %             fprintf('Half Upper\n');
-%             if (-1*(pfa_target - flagFA)) < Scaler_prec
-%                 vt = vt_low;
+%             if (-1*(refPfa - flagFA)) < refPrcsn
+%                 vt = lowVt;
 %                 pfa = flagFA;
 %                 fprintf('Complete!\n');
 %                 break;
 %             end
 %         else
-%             vt_high = vt;
-%             vt = vt - ((vt_high - vt_low) / 2);
+%             highVt = vt;
+%             vt = vt - ((highVt - lowVt) / 2);
 %             fprintf('Half Lower\n');
 %         end
         
         % % Left-handed Limit
-        if flagFA < pfa_target
-            vt_high = vt;
-            vt = vt - ((vt_high - vt_low) / 2);
+        if flagFA < refPfa
+            highVt = vt;
+            vt = vt - ((highVt - lowVt) / 2);
             fprintf('Half Lower\n');
-            if (pfa_target - flagFA) < Scaler_prec
-                vt = vt_high;
+            if (refPfa - flagFA) < refPrcsn
+                vt = highVt;
                 pfa = flagFA;
                 fprintf('Complete!\n');
                 break;
             end
         else
-            vt_low = vt;
-            vt = vt + ((vt_high - vt_low) / 2);
+            lowVt = vt;
+            vt = vt + ((highVt - lowVt) / 2);
             fprintf('Half Upper\n');
         end
 

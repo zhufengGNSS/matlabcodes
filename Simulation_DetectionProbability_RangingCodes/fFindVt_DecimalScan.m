@@ -1,26 +1,30 @@
-function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN0_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
+function [vt, pfa] = fFindVt_DecimalScan (typeCorr, time, refPfa, refPrcsn, CN0_dB, numPRN, CorrOut, lenCode, sigma, initVt, initPoint)
     bWhileEnd = 0;
-    Scaler = scale_init;
-    cnt_Scaler = 1;
+    Pointer = initPoint;
+    cntPointer = 1;
 
-    targetPRN1 = 1:nNumPRN;
+    targetPRN1 = 1:numPRN;
 
-    vt = vt_init; 
+    vt = initVt; 
     
+    CN0 = 10^(CN0_dB/10);
+    
+    timeSearchDwell = time; % it also be sampling rate.
+
     while(1)
-        FA_CorrOut_Auto = zeros(nNumPRN,1);
+        FA_CorrOut_Auto = zeros(numPRN,1);
         for lpPRN1 = targetPRN1
-            if strcmp(Type,'Auto')
+            if strcmp(typeCorr,'Auto')
                 targetPRN2 = 1;
-            elseif strcmp(Type,'Cross')
-                targetPRN2 = (1:nNumPRN-lpPRN1+1);
+            elseif strcmp(typeCorr,'Cross')
+                targetPRN2 = (1:numPRN-lpPRN1+1);
             end
 
             nCntCross = 0;
             for lpPRN2 = targetPRN2
-                FA_temp = zeros(nLenCode,1);
-                for lpChip = 1:nLenCode
-                    CN = 10^(CN0_dB/10) * 0.001 * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
+                FA_temp = zeros(lenCode,1);
+                for lpChip = 1:lenCode
+                    CN = CN0 * timeSearchDwell * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
                     nu = sqrt(2*(CN));
                     QM_a = nu / sigma;
                     FA_temp(lpChip,1) = marcumq(QM_a,vt,1);
@@ -28,7 +32,7 @@ function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN0_dB, 
                 
                 nCntCross = nCntCross + 1;
                 if lpPRN2 == 1
-                    FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp(2:nLenCode,1));
+                    FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp(2:lenCode,1));
                 else
                     FA_CorrOut_Auto(lpPRN1) = FA_CorrOut_Auto(lpPRN1) + mean(FA_temp);
                 end
@@ -46,40 +50,40 @@ function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN0_dB, 
         end
         
         % % Right-handed Limit
-%         if flagFA > pfa_target
-%             vt = vt + Scaler;
-%             cnt_Scaler = cnt_Scaler + 1;
-%             fprintf('Vt+Scaler\n');
+%         if flagFA > refPfa
+%             vt = vt + Pointer;
+%             cntPointer = cntPointer + 1;
+%             fprintf('Vt+Pointer\n');
 %         else
-%             vt = vt - Scaler;
-%             Scaler = Scaler * 0.1;
-%             cnt_Scaler = 0;
-%             if Scaler < Scaler_prec
+%             vt = vt - Pointer;
+%             Pointer = Pointer * 0.1;
+%             cntPointer = 0;
+%             if Pointer < refPrcsn
 %                 bWhileEnd = 1;
 %                 fprintf('Complete!\n');
 %             else
-%                 vt = vt + Scaler;
-%                 cnt_Scaler = cnt_Scaler + 1;
-%                 fprintf('Vt-Scaler, Scaler/10 than Vt+Scaler\n');
+%                 vt = vt + Pointer;
+%                 cntPointer = cntPointer + 1;
+%                 fprintf('Vt-Pointer, Pointer/10 than Vt+Pointer\n');
 %             end
 %         end
         
         % % Left-handed Limit
-        if flagFA < pfa_target
-            vt = vt - Scaler;
-            cnt_Scaler = cnt_Scaler + 1;
-            fprintf('Vt-Scaler\n');
+        if flagFA < refPfa
+            vt = vt - Pointer;
+            cntPointer = cntPointer + 1;
+            fprintf('Vt-Pointer\n');
         else
-            vt = vt + Scaler;
-            Scaler = Scaler * 0.1;
-            cnt_Scaler = 0;
-            if Scaler < Scaler_prec
+            vt = vt + Pointer;
+            Pointer = Pointer * 0.1;
+            cntPointer = 0;
+            if Pointer < refPrcsn
                 bWhileEnd = 1;
                 fprintf('Complete!\n');
             else
-                vt = vt - Scaler;
-                cnt_Scaler = cnt_Scaler + 1;
-                fprintf('Vt+Scaler, Scaler/10 than Vt-Scaler\n');
+                vt = vt - Pointer;
+                cntPointer = cntPointer + 1;
+                fprintf('Vt+Pointer, Pointer/10 than Vt-Pointer\n');
             end
         end
 
