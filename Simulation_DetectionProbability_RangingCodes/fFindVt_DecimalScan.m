@@ -1,4 +1,4 @@
-function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
+function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN0_dB, nNumPRN, CorrOut, nLenCode, sigma, vt_init, scale_init)
     bWhileEnd = 0;
     Scaler = scale_init;
     cnt_Scaler = 1;
@@ -20,7 +20,7 @@ function [vt, pfa] = fFindVt_DecimalScan(Type, pfa_target, Scaler_prec, CN_dB, n
             for lpPRN2 = targetPRN2
                 FA_temp = zeros(nLenCode,1);
                 for lpChip = 1:nLenCode
-                    CN = 10^(CN_dB/10) * 0.001 * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
+                    CN = 10^(CN0_dB/10) * 0.001 * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
                     nu = sqrt(2*(CN));
                     QM_a = nu / sigma;
                     FA_temp(lpChip,1) = marcumq(QM_a,vt,1);
