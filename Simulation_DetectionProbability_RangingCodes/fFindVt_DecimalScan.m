@@ -1,4 +1,4 @@
-function [vt, pfa] = fFindVt_DecimalScan (typeCorr, time, refPfa, refPrcsn, CN0_dB, numPRN, CorrOut, lenCode, sigma, initVt, initPoint)
+function [vt, pfa] = fFindVt_DecimalScan (typeCorr, fs, refPfa, refPrcsn, CN0_dB, numPRN, CorrOut, lenCode, sigma, initVt, initPoint)
     bWhileEnd = 0;
     Pointer = initPoint;
     cntPointer = 1;
@@ -8,8 +8,9 @@ function [vt, pfa] = fFindVt_DecimalScan (typeCorr, time, refPfa, refPrcsn, CN0_
     vt = initVt; 
     
     CN0 = 10^(CN0_dB/10);
+    CN = CN0 * 0.001;
     
-    timeSearchDwell = time; % it also be sampling rate.
+    sampleeff = fs/2; % it also be sampling rate.
 
     while(1)
         FA_CorrOut_Auto = zeros(numPRN,1);
@@ -23,9 +24,10 @@ function [vt, pfa] = fFindVt_DecimalScan (typeCorr, time, refPfa, refPrcsn, CN0_
             nCntCross = 0;
             for lpPRN2 = targetPRN2
                 FA_temp = zeros(lenCode,1);
+                NormCorrOut = abs(CorrOut(lpPRN1).CorrOut_Norm(:,lpPRN2)).^2;
                 for lpChip = 1:lenCode
-                    CN = CN0 * timeSearchDwell * abs(CorrOut(lpPRN1).CorrOut_Norm(lpChip,lpPRN2))^2;
-                    nu = sqrt(2*(CN));
+                    sidepeak = CN * sampleeff * NormCorrOut(lpChip,:);
+                    nu = sqrt(2*(sidepeak));
                     QM_a = nu / sigma;
                     FA_temp(lpChip,1) = marcumq(QM_a,vt,1);
                 end

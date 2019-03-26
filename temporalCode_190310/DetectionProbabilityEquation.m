@@ -15,7 +15,7 @@ plot(rv,Pn_Ray,'.-');
 plot(rv,Pn_Ray_Lim,'.-');
 
 legend my DrLim
-% 임박사님이 짜주신 Rayleigh 분포는 내가 짠 것과 동일!
+% ?�박?�님??짜주??Rayleigh 분포???��? �?것과 ?�일!
 
 % CDF
 Pn_Ray_CDF = 1 - exp(-rv.^2/(2*sigma^2));
@@ -29,6 +29,7 @@ plot(rv,Pn_Ray_CDF);
 CN_dB = 46.99;
 
 CN_GPSmain = 10^(CN_dB/10) * 0.001 * (1023/1023)^2;
+CN_GPSmain1 = 10^(CN_dB/10) * (20e6/2) * (1023/1023)^2;
 
 CN_dB_2 = 10*log10(CN_GPSmain);
 

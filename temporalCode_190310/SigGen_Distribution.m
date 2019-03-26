@@ -3,7 +3,7 @@ clear all;
 clc;
 
 time = 10000; %ms
-fs = 2000; %kHz
+fs = 20000; %kHz
 fc = 1575420000;
 CNR = -20;
 
@@ -110,9 +110,9 @@ legend 1 2 3 4 5
 % hold on;
 % 
 % % ?ÑÎûò ?ÑÏùò Ï∂îÍ?
-% z = x;
-% CN = var(Signal)/var(randn(1,fs))*(1023/1023)^2*0.001;
-% CN_dB = 10*log10(CN)
-% Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
-% plot(z, Pdf_S,'.-'); 
-% ylim([0 1]);
+z = x;
+CN = var(Signal)/var(randn(1,fs))*(1023/1023)^2*0.001;
+CN_dB = 10*log10(CN)
+Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
+plot(z, Pdf_S,'p-'); 
+ylim([0 1]);
