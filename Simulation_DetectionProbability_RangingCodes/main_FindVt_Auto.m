@@ -10,7 +10,7 @@ load([path,'CorrOut_GALE1.mat']);
 
 %% Vt Finding Loops
 % % 
-CN0_dB = [20; 35; 50];
+CN0_dB = [20 35 50];
 lenLoop = length(CN0_dB);
 
 sigma = 1;  % RMS of noise power
@@ -62,7 +62,7 @@ for idx = 1:lenLoop
 %     [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CN0_dB(idx), 63, CorrOut_BDSB1Cd,  10230, sigma, vt, prec*10);
 %     Vt_BDSB1Cd_A(idx,3:4) = [vt, pfa];
     
-    save([path,'Vt_Auto_fs20MHz_gpsCAgalE1.mat'],...
+    save([path,'Vt_Auto_fs20MHz_gpsCAgalE1_50dB.mat'],...
         'Vt_GPSL1CA_A',...
         'Vt_GALE1b_A',...
         'Vt_GALE1c_A');
@@ -122,7 +122,7 @@ for idx = 1:lenLoop
 %     [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CN0_dB(idx), 63, CorrOut_BDSB1Cd,  10230, sigma, vt, prec*10);
 %     Vt_BDSB1Cd_A(idx,3:4) = [vt, pfa];
     
-    save([path,'Vt_Auto_fs5MHz_gpsCAgalE1.mat'],...
+    save([path,'Vt_Auto_fs5MHz_gpsCAgalE1_50dB.mat'],...
         'Vt_GPSL1CA_A',...
         'Vt_GALE1b_A',...
         'Vt_GALE1c_A');
