@@ -3,48 +3,48 @@
 % % Correlation Results Loading
 path = 'F:\TemporalDataStorage\';
 
-% load([path,'CorrOut_ZADD1023_0.mat']);
-% 
-% load([path,'CorrOut_ZADD4092_0_1.mat']);
-% load([path,'CorrOut_ZADD4092_0_2.mat']);
-% load([path,'CorrOut_ZADD4092_0_3.mat']);
-% load([path,'CorrOut_ZADD4092_0_4.mat']);
-% load([path,'CorrOut_ZADD4092_0_5.mat']);
-% load([path,'CorrOut_ZADD4092_0_6.mat']);
-% load([path,'CorrOut_ZADD4092_0_7.mat']);
-% load([path,'CorrOut_ZADD4092_0_8.mat']);
-% load([path,'CorrOut_ZADD4092_0_9.mat']);
-% CorrOut_ZADD4092_0(1,  1: 50) = CorrOut_ZADD4092_0_1;
-% CorrOut_ZADD4092_0(1, 51:100) = CorrOut_ZADD4092_0_2;
-% CorrOut_ZADD4092_0(1,101:150) = CorrOut_ZADD4092_0_3;
-% CorrOut_ZADD4092_0(1,151:200) = CorrOut_ZADD4092_0_4;
-% CorrOut_ZADD4092_0(1,201:250) = CorrOut_ZADD4092_0_5;
-% CorrOut_ZADD4092_0(1,251:300) = CorrOut_ZADD4092_0_6;
-% CorrOut_ZADD4092_0(1,301:400) = CorrOut_ZADD4092_0_7;
-% CorrOut_ZADD4092_0(1,401:500) = CorrOut_ZADD4092_0_8;
-% CorrOut_ZADD4092_0(1,501:600) = CorrOut_ZADD4092_0_9;
-% clear CorrOut_ZADD4092_0_1;
-% clear CorrOut_ZADD4092_0_2;
-% clear CorrOut_ZADD4092_0_3;
-% clear CorrOut_ZADD4092_0_4;
-% clear CorrOut_ZADD4092_0_5;
-% clear CorrOut_ZADD4092_0_6;
-% clear CorrOut_ZADD4092_0_7;
-% clear CorrOut_ZADD4092_0_8;
-% clear CorrOut_ZADD4092_0_9;
+load([path,'CorrOut_ZADD1023_0.mat']);
+
+load([path,'CorrOut_ZADD4092_0_1.mat']);
+load([path,'CorrOut_ZADD4092_0_2.mat']);
+load([path,'CorrOut_ZADD4092_0_3.mat']);
+load([path,'CorrOut_ZADD4092_0_4.mat']);
+load([path,'CorrOut_ZADD4092_0_5.mat']);
+load([path,'CorrOut_ZADD4092_0_6.mat']);
+load([path,'CorrOut_ZADD4092_0_7.mat']);
+load([path,'CorrOut_ZADD4092_0_8.mat']);
+load([path,'CorrOut_ZADD4092_0_9.mat']);
+CorrOut_ZADD4092_0(1,  1: 50) = CorrOut_ZADD4092_0_1;
+CorrOut_ZADD4092_0(1, 51:100) = CorrOut_ZADD4092_0_2;
+CorrOut_ZADD4092_0(1,101:150) = CorrOut_ZADD4092_0_3;
+CorrOut_ZADD4092_0(1,151:200) = CorrOut_ZADD4092_0_4;
+CorrOut_ZADD4092_0(1,201:250) = CorrOut_ZADD4092_0_5;
+CorrOut_ZADD4092_0(1,251:300) = CorrOut_ZADD4092_0_6;
+CorrOut_ZADD4092_0(1,301:400) = CorrOut_ZADD4092_0_7;
+CorrOut_ZADD4092_0(1,401:500) = CorrOut_ZADD4092_0_8;
+CorrOut_ZADD4092_0(1,501:600) = CorrOut_ZADD4092_0_9;
+clear CorrOut_ZADD4092_0_1;
+clear CorrOut_ZADD4092_0_2;
+clear CorrOut_ZADD4092_0_3;
+clear CorrOut_ZADD4092_0_4;
+clear CorrOut_ZADD4092_0_5;
+clear CorrOut_ZADD4092_0_6;
+clear CorrOut_ZADD4092_0_7;
+clear CorrOut_ZADD4092_0_8;
+clear CorrOut_ZADD4092_0_9;
 
 %% Zadoff-Chu Index
-%     ZC1023idx = [1 19 20 39 55 59 73 78 97 117 128 136 155 164 175 182 194 214 220 234 238 253 272 274 292];
-%     for lpPRN = 1:length(ZC1023idx)
-%         CorrOut_ZC1023_0(lpPRN) = struct('CorrOut',NaN(1023,length(ZC1023idx)),...
-%             'CorrOut_Norm',NaN(1023,length(ZC1023idx)));%,...
-%             %'CorrOut_absNorm',NaN(1023,length(ZADD1023Target_b)));
-%         CorrOut_ZC1023_0(lpPRN).CorrOut = CorrOut_ZADD1023_0(ZC1023idx(lpPRN)).CorrOut(:,ZC1023idx);
-%         CorrOut_ZC1023_0(lpPRN).CorrOut_Norm = CorrOut_ZADD1023_0(ZC1023idx(lpPRN)).CorrOut(:,ZC1023idx) / 1023;
-%     end
+    ZC1023idx = [1 19 20 39 55 59 73 78 97 117 128 136 155 164 175 182 194 214 220 234 238 253 272 274 292];
     for lpPRN = 1:length(ZC1023idx)
-%         CorrOut_ZC1023_0(lpPRN).CorrOut = 
-%         CorrOut_ZC1023_0(lpPRN).CorrOut_Norm = 
+        CorrOut_ZC1023_0(lpPRN) = struct('CorrOut',NaN(1023,length(ZC1023idx)),...
+            'CorrOut_Norm',NaN(1023,length(ZC1023idx)));%,...
+            %'CorrOut_absNorm',NaN(1023,length(ZADD1023Target_b)));
+        CorrOut_ZC1023_0(lpPRN).CorrOut = CorrOut_ZADD1023_0(ZC1023idx(lpPRN)).CorrOut(:,ZC1023idx);
+        CorrOut_ZC1023_0(lpPRN).CorrOut_Norm = CorrOut_ZADD1023_0(ZC1023idx(lpPRN)).CorrOut(:,ZC1023idx) / 1023;
+    end
+    for lpPRN = 1:length(ZC1023idx)
+        CorrOut_ZC1023_0(lpPRN).CorrOut = CorrOut_ZC1023_0(lpPRN).CorrOut(:,lpPRN:length(ZC1023idx));
+        CorrOut_ZC1023_0(lpPRN).CorrOut_Norm = CorrOut_ZC1023_0(lpPRN).CorrOut_Norm(:,lpPRN:length(ZC1023idx));
     end
     
     ZC4092idx = [1, 37, 40, 78, 111, 118, 147, 156, 195, 201, 219, 233, 272, 311, 328, 349, 365,...
@@ -56,6 +56,10 @@ path = 'F:\TemporalDataStorage\';
         tmpTarget = ZC4092idx(lpPRN:end)-ZC4092idx(lpPRN)+1;
         CorrOut_ZC4092_0(lpPRN).CorrOut = CorrOut_ZADD4092_0(ZC4092idx(lpPRN)).CorrOut(:,tmpTarget);
         CorrOut_ZC4092_0(lpPRN).CorrOut_Norm = CorrOut_ZADD4092_0(ZC4092idx(lpPRN)).CorrOut(:,tmpTarget) / 4092;
+    end
+    for lpPRN = 1:length(ZC4092idx)
+        CorrOut_ZC4092_0(lpPRN).CorrOut = CorrOut_ZC4092_0(lpPRN).CorrOut(:,lpPRN:length(ZC4092idx));
+        CorrOut_ZC4092_0(lpPRN).CorrOut_Norm = CorrOut_ZC4092_0(lpPRN).CorrOut_Norm(:,lpPRN:length(ZC4092idx));
     end
 
 %% Vt Finding Loops
