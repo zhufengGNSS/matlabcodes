@@ -1,4 +1,4 @@
-function [FA_CorrOut,Pfa,Pd] = fCalculationPd(typeCorr, fs, refVt, CN0_dB, numPRN, CorrOut,lenCode, sigma)
+function [FA_CorrOut,Pfa,Pd] = fCalculationPd(typeCorr, fs, refVt, CN0_dB, numPRN, CorrOut, lenCode, sigma)
     targetPRN = 1:numPRN;
     
     FA_CorrOut = zeros(numPRN,1);
@@ -14,6 +14,8 @@ function [FA_CorrOut,Pfa,Pd] = fCalculationPd(typeCorr, fs, refVt, CN0_dB, numPR
         elseif strcmp(typeCorr,'Cross')
             targetPRN2 = (1:numPRN-lpPRN1+1);
         end
+        
+        nCntCross = 0;
         for lpPRN2 = targetPRN2
             FA_temp = zeros(lenCode,1);
             NormCorrOut = abs(CorrOut(lpPRN1).CorrOut_Norm(:,lpPRN2)).^2;
@@ -30,14 +32,14 @@ function [FA_CorrOut,Pfa,Pd] = fCalculationPd(typeCorr, fs, refVt, CN0_dB, numPR
             else
                 FA_CorrOut(lpPRN1) = FA_CorrOut(lpPRN1) + mean(FA_temp);
             end
-
+            FA_CorrOut(lpPRN1) = FA_CorrOut(lpPRN1) / nCntCross;
         end
     end
 
     flagFA = mean(FA_CorrOut(:));
     Pfa = flagFA;
     
-    nu = sqrt(2*(CN));
+    nu = sqrt(2*(CN * sampleeff));
     QM_a = nu / sigma;
     Pd = marcumq(QM_a,refVt);
 end
