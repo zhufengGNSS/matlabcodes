@@ -5,7 +5,7 @@ clc;
 time = 10000; %ms
 fs = 20000; %kHz
 fc = 1575420000;
-CNR = -20;
+CNR = -40;
 
 CA_code = 2.*code_generator(1)-1;
 Sampled_CA_code = zeros(1,fs);
@@ -71,8 +71,8 @@ Norm = sqrt(2*fs);
 
 %%% Pdf of Noise 
 Resol_N = 0.005;
-% figure;
-x = 0:Resol_N:30;
+figure;
+x = 0:Resol_N:10;
 [n xcount] = hist(sqrt(Corr_I_N.^2+Corr_Q_N.^2)./Norm,x); grid on;
 plot(xcount,n./(sum(n)/(1/Resol_N))); grid on; hold on;
 ylim([0 1]);
@@ -82,12 +82,18 @@ Pdf_N = z.*exp(-(0.5.*z.^2));
 plot(z, Pdf_N,'.-');
 ylim([0 1]);
 
+CN = Amp^2/2 * (fs/2) * (65/1023)^2;
+CN_dB = 10*log10(CN)
+Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
+plot(z, Pdf_S,'.-'); 
+ylim([0 1]);
+
 
 
 %%% Pdf of Signal
 Resol_S = 0.01;
 % figure;
-x = 0:Resol_S:30;
+x = 0:Resol_S:10;
 [n xcount] = hist(sqrt(Corr_I_S.^2+Corr_Q_S.^2)./Norm,x); grid on;
 plot(x,n./(sum(n)/(1/Resol_S))); grid on; hold on;
 ylim([0 1]);
@@ -106,7 +112,7 @@ Pdf_S = z.*exp(-(0.5.*z.^2+CN)).*besseli(0,z.*sqrt(2*CN));
 plot(z, Pdf_S,'.-'); 
 ylim([0 1]);
 
-legend 1 2 3 4 5
+legend noise-sim noise-theory 65/1023 sig-sim sig-var sig-amp
 % hold on;
 % 
 % % ?ÑÎûò ?ÑÏùò Ï∂îÍ?
