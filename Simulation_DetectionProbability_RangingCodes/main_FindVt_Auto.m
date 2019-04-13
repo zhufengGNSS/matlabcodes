@@ -1,7 +1,7 @@
 %% Pre-Processing
 
 % % Correlation Results Loading
-path = 'D:\TemporalDataStorage\';
+path = 'F:\TemporalDataStorage\';
 
 load([path,'CorrOut_GPSL1CA.mat']);
 load([path,'CorrOut_GALE1.mat']);
@@ -18,52 +18,52 @@ sigma = 1;  % RMS of noise power
 %% Vt Finding Loops @ Sampling Rate 20 MHz
     fs = 20e6;
     %% Distribution Display @ sampling rate 20 MHz
-    addpath('..\genRangingCodes');
-    load CodeSequence_PRN_GPSL1CA.mat;
-    time = 10000; % [ms]
-    fc = 1575.42e6;
-    
-    SampledCode_GPSL1CA = zeros(fs*1e-3,1);
-    SampledCarr_I = zeros(fs*1e-3,1);
-    SampledCarr_Q = zeros(fs*1e-3,1);
-    
-    for ii=1:(fs*1e-3)
-        SampledCode_GPSL1CA(ii) = 1*colL1CA(ceil((rem(ii-1,fs)+1)*1023/fs),1);
-        SampledCarr_I(ii) = 1*cos(1*(2*pi*(fc)*(ii/fs)*0.001));
-        SampledCarr_Q(ii) = 1*sin(1*(2*pi*(fc)*(ii/fs)*0.001));
-    end
-    
-    Amp = sqrt(2*10.^(CN0_dB/10) * 0.001);
-    Signal_GPSL1CA = Amp.*(SampledCode_GPSL1CA.*SampledCarr_I);
-    SNR = 10*log10(var(Signal_GPSL1CA)/1);
-    
-    Corr_I_Noise = zeros(time,1);
-    Corr_Q_Noise = zeros(time,1);
-    Corr_I_GPSL1CA = zeros(time,3);
-    Corr_Q_GPSL1CA = zeros(time,3);
-    
-    Amp_R = 2;
-    Delay = 0;
-    for kk=1:time
-        bb_noise_I = randn(1,fs*1e-3);
-        bb_noise_Q = randn(1,fs*1e-3);
-        Corr_I_Noise(kk) = bb_noise_I*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_I);
-        Corr_Q_Noise(kk) = bb_noise_Q*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_Q);
-        bb_gpsl1ca  = Signal_GPSL1CA + randn(fs*1e-3,3);
-        Corr_I_GPSL1CA(kk,:) = (transpose(bb_gpsl1ca)*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_I))';
-        Corr_Q_GPSL1CA(kk,:) = (transpose(bb_gpsl1ca)*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_Q))';
-    end
-    
-    %Norm = sqrt(2*fs);
-    Norm = sqrt(2*fs*0.001);
-    
-    figure;
-    Resol =  0.005;
-    rv = 0:Resol:30;
-    [n xcount] = hist(sqrt(Corr_I_Noise.^2 + Corr_Q_Noise.^2)./Norm , rv);
-    plot(xcount, n./(sum(n)/(1/Resol)));
-    grid on;
-    hold on;
+%     addpath('..\genRangingCodes');
+%     load CodeSequence_PRN_GPSL1CA.mat;
+%     time = 10000; % [ms]
+%     fc = 1575.42e6;
+%     
+%     SampledCode_GPSL1CA = zeros(fs*1e-3,1);
+%     SampledCarr_I = zeros(fs*1e-3,1);
+%     SampledCarr_Q = zeros(fs*1e-3,1);
+%     
+%     for ii=1:(fs*1e-3)
+%         SampledCode_GPSL1CA(ii) = 1*colL1CA(ceil((rem(ii-1,fs)+1)*1023/fs),1);
+%         SampledCarr_I(ii) = 1*cos(1*(2*pi*(fc)*(ii/fs)*0.001));
+%         SampledCarr_Q(ii) = 1*sin(1*(2*pi*(fc)*(ii/fs)*0.001));
+%     end
+%     
+%     Amp = sqrt(2*10.^(CN0_dB/10) * 0.001);
+%     Signal_GPSL1CA = Amp.*(SampledCode_GPSL1CA.*SampledCarr_I);
+%     SNR = 10*log10(var(Signal_GPSL1CA)/1);
+%     
+%     Corr_I_Noise = zeros(time,1);
+%     Corr_Q_Noise = zeros(time,1);
+%     Corr_I_GPSL1CA = zeros(time,3);
+%     Corr_Q_GPSL1CA = zeros(time,3);
+%     
+%     Amp_R = 2;
+%     Delay = 0;
+%     for kk=1:time
+%         bb_noise_I = randn(1,fs*1e-3);
+%         bb_noise_Q = randn(1,fs*1e-3);
+%         Corr_I_Noise(kk) = bb_noise_I*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_I);
+%         Corr_Q_Noise(kk) = bb_noise_Q*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_Q);
+%         bb_gpsl1ca  = Signal_GPSL1CA + randn(fs*1e-3,3);
+%         Corr_I_GPSL1CA(kk,:) = (transpose(bb_gpsl1ca)*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_I))';
+%         Corr_Q_GPSL1CA(kk,:) = (transpose(bb_gpsl1ca)*([SampledCode_GPSL1CA(1+Delay:fs*1e-3); SampledCode_GPSL1CA(1:Delay)].*Amp_R.*SampledCarr_Q))';
+%     end
+%     
+%     %Norm = sqrt(2*fs);
+%     Norm = sqrt(2*fs*0.001);
+%     
+%     figure;
+%     Resol =  0.005;
+%     rv = 0:Resol:30;
+%     [n xcount] = hist(sqrt(Corr_I_Noise.^2 + Corr_Q_Noise.^2)./Norm , rv);
+%     plot(xcount, n./(sum(n)/(1/Resol)));
+%     grid on;
+%     hold on;
     
 % % Vt Finding based on Auto-Correlation Results
 Vt_GPSL1CA_A = zeros(lenLoop, 4);
