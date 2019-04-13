@@ -57,15 +57,16 @@ clear CorrOut_ZADD4092_0_9;
         CorrOut_ZC4092_0(lpPRN).CorrOut = CorrOut_ZADD4092_0(ZC4092idx(lpPRN)).CorrOut(:,tmpTarget);
         CorrOut_ZC4092_0(lpPRN).CorrOut_Norm = CorrOut_ZADD4092_0(ZC4092idx(lpPRN)).CorrOut(:,tmpTarget) / 4092;
     end
-    for lpPRN = 1:length(ZC4092idx)
-        CorrOut_ZC4092_0(lpPRN).CorrOut = CorrOut_ZC4092_0(lpPRN).CorrOut(:,lpPRN:length(ZC4092idx));
-        CorrOut_ZC4092_0(lpPRN).CorrOut_Norm = CorrOut_ZC4092_0(lpPRN).CorrOut_Norm(:,lpPRN:length(ZC4092idx));
-    end
+%     for lpPRN = 1:length(ZC4092idx)
+%         CorrOut_ZC4092_0(lpPRN).CorrOut = CorrOut_ZC4092_0(lpPRN).CorrOut(:,lpPRN:length(ZC4092idx));
+%         CorrOut_ZC4092_0(lpPRN).CorrOut_Norm = CorrOut_ZC4092_0(lpPRN).CorrOut_Norm(:,lpPRN:length(ZC4092idx));
+%     end
 
 %% Vt Finding Loops
 % % 
 CN0_dB = [20 35 50];
 lenLoop = length(CN0_dB);
+CNR_dB = CN0_dB - 60;
 
 sigma = 1;  % RMS of noise power
 
@@ -76,14 +77,14 @@ Vt_ZC4092_A = zeros(lenLoop, 4);
 fs = 20e6;
 prec = 1e-10;
 for idx = 1:lenLoop
-    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CN0_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, 0, 10000);
+    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CNR_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, 0, 10000);
     Vt_ZC1023_A(idx,1:2) = [vt, pfa];
-    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CN0_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, vt, prec*10);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CNR_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, vt, prec*10);
     Vt_ZC1023_A(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CN0_dB(idx), 27,  CorrOut_ZC4092_0,  4092, sigma, 0, 10000);
+    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CNR_dB(idx), 27,  CorrOut_ZC4092_0,  4092, sigma, 0, 10000);
     Vt_ZC4092_A(idx,1:2) = [vt, pfa];
-    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CN0_dB(idx), 27, CorrOut_ZC4092_0,  4092, sigma, vt, prec*10);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CNR_dB(idx), 27, CorrOut_ZC4092_0,  4092, sigma, vt, prec*10);
     Vt_ZC4092_A(idx,3:4) = [vt, pfa];
     
     save([path,'Vt_Auto_fs20MHz_ZC.mat'],...
@@ -101,14 +102,14 @@ Vt_ZC4092_A = zeros(lenLoop, 4);
 fs = 5e6;
 prec = 1e-10;
 for idx = 1:lenLoop
-    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CN0_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, 0, 10000);
+    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CNR_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, 0, 10000);
     Vt_ZC1023_A(idx,1:2) = [vt, pfa];
-    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CN0_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, vt, prec*10);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CNR_dB(idx), 25, CorrOut_ZC1023_0,  1023, sigma, vt, prec*10);
     Vt_ZC1023_A(idx,3:4) = [vt, pfa];
     
-    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CN0_dB(idx), 27,  CorrOut_ZC4092_0,  4092, sigma, 0, 10000);
+    [vt, pfa] = fFindVt_BinarySearch('Auto', fs, 0.01, prec, CNR_dB(idx), 27,  CorrOut_ZC4092_0,  4092, sigma, 0, 10000);
     Vt_ZC4092_A(idx,1:2) = [vt, pfa];
-    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CN0_dB(idx), 27, CorrOut_ZC4092_0,  4092, sigma, vt, prec*10);
+    [vt, pfa] = fFindVt_DecimalScan('Auto', fs, 0.01, prec/10, CNR_dB(idx), 27, CorrOut_ZC4092_0,  4092, sigma, vt, prec*10);
     Vt_ZC4092_A(idx,3:4) = [vt, pfa];
     
     save([path,'Vt_Auto_fs5MHz_ZC.mat'],...
