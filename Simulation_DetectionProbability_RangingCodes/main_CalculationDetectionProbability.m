@@ -128,6 +128,8 @@ for lpRefVtCN0 = 1:lenLoop1
             'Pd_ZC4092_A');
     end
 end
+fs
+
 
 load([path,'Vt_Auto_fs5MHz_gpsCAgalE1.mat']);
 load([path,'Vt_Auto_fs5MHz_ZC.mat']);
@@ -166,7 +168,7 @@ for lpRefVtCN0 = 1:lenLoop1
         Pfa_ZC4092_A(lpCN0, lpRefVtCN0) = Pfa;
         Pd_ZC4092_A (lpCN0, lpRefVtCN0) = Pd;
 
-        CN0_dB(lpCN0)
+        disp(['refVt=',num2str(refVtCN0_dB(lpRefVtCN0)),' testVt=',num2str(CN0_dB(lpCN0))]);
         
         save([path, 'Pfa_Auto_fs5MHz.mat'],...
             'Pfa_GPSL1CA_A',...
@@ -182,7 +184,7 @@ for lpRefVtCN0 = 1:lenLoop1
             'Pd_ZC4092_A');
     end
 end
-
+fs
 
 
 
