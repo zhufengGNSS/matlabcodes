@@ -43,7 +43,7 @@ function [vt, pfa] = fFindVt_DecimalScan (typeCorr, fs, refPfa, refPrcsn, CN0_dB
         end
         
         flagFA = mean(FA_CorrOut_Auto(:,1));
-        fprintf('Vt=%.14f, FA=%.14f%%\t',vt,flagFA*100);
+        fprintf('Vt=%4.14f, FA=%.14f%%\t',vt,flagFA*100);
         
         if bWhileEnd == 1
             fprintf('Verifying Vt. function return\n');

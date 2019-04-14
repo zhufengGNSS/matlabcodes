@@ -39,7 +39,7 @@ function [vt, pfa] = fFindVt_BinarySearch(typeCorr, fs, refPfa, refPrcsn, CN0_dB
         end
         
         flagFA = mean(FA_CorrOut_Auto(:,1));
-        fprintf('Vt=%.14f, FA=%.14f%%\t',vt,flagFA*100);
+        fprintf('Vt=%4.14f, FA=%.14f%%\t',vt,flagFA*100);
         
         % % Right-handed Limit
 %         if flagFA > refPfa
@@ -66,6 +66,7 @@ function [vt, pfa] = fFindVt_BinarySearch(typeCorr, fs, refPfa, refPrcsn, CN0_dB
             if (refPfa - flagFA) < refPrcsn
                 vt = highVt;
                 pfa = flagFA;
+                fprintf('Vt=%4.14f, FA=%.14f%%\t',vt,flagFA*100);
                 fprintf('Complete!\n');
                 break;
             end
