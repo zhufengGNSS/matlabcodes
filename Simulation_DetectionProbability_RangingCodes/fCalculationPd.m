@@ -27,7 +27,7 @@ function [FA_CorrOut,Pfa,Pd] = fCalculationPd(typeCorr, fs, refVt, CN0_dB, numPR
             end
 
             nCntCross = nCntCross + 1;
-            if lpPRN1 == 1
+            if lpPRN2 == 1
                 FA_CorrOut(lpPRN1) = FA_CorrOut(lpPRN1) + mean(FA_temp(2:lenCode,1));
             else
                 FA_CorrOut(lpPRN1) = FA_CorrOut(lpPRN1) + mean(FA_temp);
@@ -36,7 +36,9 @@ function [FA_CorrOut,Pfa,Pd] = fCalculationPd(typeCorr, fs, refVt, CN0_dB, numPR
         end
     end
 
-    flagFA = mean(FA_CorrOut(:));
+    flagFA = mean(FA_CorrOut(:,1));
+    fprintf('Vt=%4.14f, FA=%.14f%%\n',refVt,flagFA*100);
+
     Pfa = flagFA;
     
     nu = sqrt(2*(CN * sampleeff));

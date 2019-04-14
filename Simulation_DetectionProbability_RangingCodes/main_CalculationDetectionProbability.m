@@ -52,14 +52,14 @@ load([path,'Vt_Auto_fs20MHz_ZC.mat']);
 fs = 20e6;
 
 Pfa_GPSL1CA_A = zeros(lenLoop2, lenLoop1);
-Pfa_GalE1b_A  = zeros(lenLoop2, lenLoop1);
-Pfa_GalE1c_A  = zeros(lenLoop2, lenLoop1);
+Pfa_GALE1b_A  = zeros(lenLoop2, lenLoop1);
+Pfa_GALE1c_A  = zeros(lenLoop2, lenLoop1);
 Pfa_ZC1023_A  = zeros(lenLoop2, lenLoop1);
 Pfa_ZC4092_A  = zeros(lenLoop2, lenLoop1);
 
 Pd_GPSL1CA_A  = zeros(lenLoop2, lenLoop1);
-Pd_GalE1b_A   = zeros(lenLoop2, lenLoop1);
-Pd_GalE1c_A   = zeros(lenLoop2, lenLoop1);
+Pd_GALE1b_A   = zeros(lenLoop2, lenLoop1);
+Pd_GALE1c_A   = zeros(lenLoop2, lenLoop1);
 Pd_ZC1023_A   = zeros(lenLoop2, lenLoop1);
 Pd_ZC4092_A   = zeros(lenLoop2, lenLoop1);
 
@@ -69,12 +69,12 @@ for lpRefVtCN0 = 1:lenLoop1
         Pfa_GPSL1CA_A(lpCN0, lpRefVtCN0) = Pfa;
         Pd_GPSL1CA_A (lpCN0, lpRefVtCN0) = Pd;
         
-        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GalE1b_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1b,  4092, sigma);
-        Pfa_GalE1b_A(lpCN0, lpRefVtCN0) = Pfa;
-        Pd_GalE1b_A (lpCN0, lpRefVtCN0) = Pd;
-        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GalE1c_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1c,  4092, sigma);
-        Pfa_GalE1c_A(lpCN0, lpRefVtCN0) = Pfa;
-        Pd_GalE1c_A (lpCN0, lpRefVtCN0) = Pd;
+        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GALE1b_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1b,  4092, sigma);
+        Pfa_GALE1b_A(lpCN0, lpRefVtCN0) = Pfa;
+        Pd_GALE1b_A (lpCN0, lpRefVtCN0) = Pd;
+        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GALE1c_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1c,  4092, sigma);
+        Pfa_GALE1c_A(lpCN0, lpRefVtCN0) = Pfa;
+        Pd_GALE1c_A (lpCN0, lpRefVtCN0) = Pd;
         
         [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_ZC1023_A(lpRefVtCN0,3), CNR_dB(lpCN0), 25, CorrOut_ZC1023_0, 1023, sigma);
         Pfa_ZC1023_A(lpCN0, lpRefVtCN0) = Pfa;
@@ -84,18 +84,18 @@ for lpRefVtCN0 = 1:lenLoop1
         Pfa_ZC4092_A(lpCN0, lpRefVtCN0) = Pfa;
         Pd_ZC4092_A (lpCN0, lpRefVtCN0) = Pd;
 
-        CN0_dB(lpCN0)
+        disp(['refVt=',num2str(refVtCN0_dB(lpRefVtCN0)),' testVt=',num2str(CN0_dB(lpCN0))]);
         
         save([path, 'Pfa_Auto_fs20MHz.mat'],...
             'Pfa_GPSL1CA_A',...
-            'Pfa_GalE1b_A',...
-            'Pfa_GalE1c_A',...
+            'Pfa_GALE1b_A',...
+            'Pfa_GALE1c_A',...
             'Pfa_ZC1023_A',...
             'Pfa_ZC4092_A');
         save([path, 'Pd_Auto_fs20MHz.mat'],...
             'Pd_GPSL1CA_A',...
-            'Pd_GalE1b_A',...
-            'Pd_GalE1c_A',...
+            'Pd_GALE1b_A',...
+            'Pd_GALE1c_A',...
             'Pd_ZC1023_A',...
             'Pd_ZC4092_A');
     end
@@ -106,14 +106,14 @@ load([path,'Vt_Auto_fs5MHz_ZC.mat']);
 fs = 5e6;
 
 Pfa_GPSL1CA_A = zeros(lenLoop2, lenLoop1);
-Pfa_GalE1b_A  = zeros(lenLoop2, lenLoop1);
-Pfa_GalE1c_A  = zeros(lenLoop2, lenLoop1);
+Pfa_GALE1b_A  = zeros(lenLoop2, lenLoop1);
+Pfa_GALE1c_A  = zeros(lenLoop2, lenLoop1);
 Pfa_ZC1023_A  = zeros(lenLoop2, lenLoop1);
 Pfa_ZC4092_A  = zeros(lenLoop2, lenLoop1);
 
 Pd_GPSL1CA_A  = zeros(lenLoop2, lenLoop1);
-Pd_GalE1b_A   = zeros(lenLoop2, lenLoop1);
-Pd_GalE1c_A   = zeros(lenLoop2, lenLoop1);
+Pd_GALE1b_A   = zeros(lenLoop2, lenLoop1);
+Pd_GALE1c_A   = zeros(lenLoop2, lenLoop1);
 Pd_ZC1023_A   = zeros(lenLoop2, lenLoop1);
 Pd_ZC4092_A   = zeros(lenLoop2, lenLoop1);
 
@@ -123,12 +123,12 @@ for lpRefVtCN0 = 1:lenLoop1
         Pfa_GPSL1CA_A(lpCN0, lpRefVtCN0) = Pfa;
         Pd_GPSL1CA_A (lpCN0, lpRefVtCN0) = Pd;
         
-        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GalE1b_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1b,  4092, sigma);
-        Pfa_GalE1b_A(lpCN0, lpRefVtCN0) = Pfa;
-        Pd_GalE1b_A (lpCN0, lpRefVtCN0) = Pd;
-        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GalE1c_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1c,  4092, sigma);
-        Pfa_GalE1c_A(lpCN0, lpRefVtCN0) = Pfa;
-        Pd_GalE1c_A (lpCN0, lpRefVtCN0) = Pd;
+        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GALE1b_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1b,  4092, sigma);
+        Pfa_GALE1b_A(lpCN0, lpRefVtCN0) = Pfa;
+        Pd_GALE1b_A (lpCN0, lpRefVtCN0) = Pd;
+        [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_GALE1c_A (lpRefVtCN0,3), CNR_dB(lpCN0), 50,  CorrOut_GALE1c,  4092, sigma);
+        Pfa_GALE1c_A(lpCN0, lpRefVtCN0) = Pfa;
+        Pd_GALE1c_A (lpCN0, lpRefVtCN0) = Pd;
         
         [FA_CorrOut,Pfa,Pd] = fCalculationPd('Auto', fs, Vt_ZC1023_A(lpRefVtCN0,3), CNR_dB(lpCN0), 25, CorrOut_ZC1023_0, 1023, sigma);
         Pfa_ZC1023_A(lpCN0, lpRefVtCN0) = Pfa;
@@ -142,14 +142,14 @@ for lpRefVtCN0 = 1:lenLoop1
         
         save([path, 'Pfa_Auto_fs5MHz.mat'],...
             'Pfa_GPSL1CA_A',...
-            'Pfa_GalE1b_A',...
-            'Pfa_GalE1c_A',...
+            'Pfa_GALE1b_A',...
+            'Pfa_GALE1c_A',...
             'Pfa_ZC1023_A',...
             'Pfa_ZC4092_A');
         save([path, 'Pd_Auto_fs5MHz.mat'],...
             'Pd_GPSL1CA_A',...
-            'Pd_GalE1b_A',...
-            'Pd_GalE1c_A',...
+            'Pd_GALE1b_A',...
+            'Pd_GALE1c_A',...
             'Pd_ZC1023_A',...
             'Pd_ZC4092_A');
     end
